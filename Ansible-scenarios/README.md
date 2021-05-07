@@ -1,1 +1,1 @@
-# Create user and put punlickey on host 
+# Create user and put publickey on host 
