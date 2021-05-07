@@ -1,0 +1,5 @@
+---
+pubkey: 
+ - { name: user, key: 'publickey' }
+
+
