@@ -1,0 +1,19 @@
+FROM jboss/base-jdk:11
+
+ENV JBOSS_HOME /opt/jboss/wildfly
+
+USER root
+
+ADD . $JBOSS_HOME/
+WORKDIR  $JBOSS_HOME/
+RUN chown -R jboss:jboss ${JBOSS_HOME}
+RUN chmod -R 777 ${JBOSS_HOME}
+ENV LAUNCH_JBOSS_IN_BACKGROUND true
+USER jboss
+
+EXPOSE 8080
+EXPOSE 9990
+
+CMD ["java", "-D[Standalone]", "-server", "-Djava.net.preferIPv4Stack=true", "-Djboss.modules.system.pkgs=org.jboss.byteman", "-Djava.awt.headless=true", "-Dorg.jboss.boot.log.file=/opt/jboss/wildfly/standalone/log/server.log", "-Dlogging.configuration=file:/opt/jboss/wildfly/standalone/configuration/logging.properties", "-jar/opt/jboss/wildfly/jboss-modules.jar", "-mp","/opt/jboss/wildfly/modules", "org.jboss.as.standalone", "-Djboss.home.dir=/opt/jboss/wildfly", "-Djboss.server.base.dir=/opt/jboss/wildfly/standalone", "-c", "standalone-full.xml"]
+
+CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-c", "standalone-full.xml", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
