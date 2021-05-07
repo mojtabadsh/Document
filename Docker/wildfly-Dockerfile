@@ -4,7 +4,7 @@ ENV JBOSS_HOME /opt/jboss/wildfly
 
 USER root
 
-ADD . $JBOSS_HOME/
+ADD . $JBOSS_HOME/ # you must download wildfly specific version
 WORKDIR  $JBOSS_HOME/
 RUN chown -R jboss:jboss ${JBOSS_HOME}
 RUN chmod -R 777 ${JBOSS_HOME}
